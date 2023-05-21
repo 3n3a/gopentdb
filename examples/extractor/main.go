@@ -8,6 +8,10 @@ import (
 	"github.com/3n3a/gopentdb"
 )
 
+const (
+	OUTPUT_FOLDER = "out"
+)
+
 func check(err error) {
 	if err != nil {
 		panic(err)
@@ -22,6 +26,8 @@ func main()  {
 	// categories list
 	categories, err := o.GetCategories()
 	check(err)
+
+	globalQuestions := make([]gopentdb.Question, 0)
 
 	for _, category := range categories {
 		questions := make([]gopentdb.Question, 0)
@@ -52,10 +58,18 @@ func main()  {
 			}
 		}
 
+		globalQuestions = append(globalQuestions, questions...)
+
 		file, err := json.MarshalIndent(questions, "", " ")
 		check(err)
-		err = ioutil.WriteFile(fmt.Sprintf("%d-category.json", category.Id), file, 0644)
+		err = ioutil.WriteFile(fmt.Sprintf("%s/%d-category.json", OUTPUT_FOLDER, category.Id), file, 0644)
 		check(err)
 		fmt.Printf("Saved Questions for %s\n", category.Name)
 	}
+
+	file, err := json.MarshalIndent(globalQuestions, "", " ")
+	check(err)
+	err = ioutil.WriteFile(fmt.Sprintf("%s/all-questions.json", OUTPUT_FOLDER), file, 0644)
+	check(err)
+	fmt.Printf("Saved File with all Questions\n")
 }

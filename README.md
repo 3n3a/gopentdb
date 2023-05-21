@@ -8,7 +8,7 @@ Install with the following command:
 
 ```bash
 go get github.com/3n3a/gopentdb
-
+```
 
 ## Examples
 

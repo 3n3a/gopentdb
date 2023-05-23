@@ -23,4 +23,8 @@ go get github.com/3n3a/gopentdb
 
 ## Contributing
 
-Open to Pull Requests.
+Please see [the following file](./CONTRIBUTING.md)
+
+## License
+
+Please see [the following file](./LICENSE)
